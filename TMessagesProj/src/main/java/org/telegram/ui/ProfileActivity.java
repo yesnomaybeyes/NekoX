@@ -5948,11 +5948,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 
         try {
 
-            Process process = RuntimeUtil.exec("logcat", "-d");
+            Process process = RuntimeUtil.exec("logcat", "-df", logcatFile.getPath());
 
-            IoUtil.copy(process, logcatFile);
-
-            RuntimeUtil.exec("logcat", "-c");
+            RuntimeUtil.exec("logcat", "-c").waitFor();
 
             ShareUtil.shareFile(getParentActivity(), logcatFile);
 
